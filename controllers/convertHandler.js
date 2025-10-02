@@ -1,22 +1,19 @@
 class ConvertHandler {
-  
+
   getNum(input) {
     if (!input) return 1;
 
-    // Extraemos la parte numérica
     const unitIndex = input.search(/[a-zA-Z]/);
     let numPart = unitIndex === 0 ? '' : input.slice(0, unitIndex);
 
     if (!numPart) return 1;
 
-    // Fracciones
     if (numPart.includes('/')) {
-      const numbers = numPart.split('/');
-      if (numbers.length !== 2) return 'invalid number';
-      const numerator = parseFloat(numbers[0]);
-      const denominator = parseFloat(numbers[1]);
-      if (isNaN(numerator) || isNaN(denominator) || denominator === 0) return 'invalid number';
-      return numerator / denominator;
+      const parts = numPart.split('/');
+      if (parts.length !== 2) return 'invalid number';
+      const [num, den] = parts.map(parseFloat);
+      if (isNaN(num) || isNaN(den) || den === 0) return 'invalid number';
+      return num / den;
     }
 
     const num = parseFloat(numPart);
@@ -61,11 +58,11 @@ class ConvertHandler {
   convert(initNum, initUnit) {
     const rates = {
       gal: 3.78541,
-      L: 1/3.78541,
+      L: 1 / 3.78541,
       lbs: 0.453592,
-      kg: 1/0.453592,
+      kg: 1 / 0.453592,
       mi: 1.60934,
-      km: 1/1.60934
+      km: 1 / 1.60934
     };
     const rate = rates[initUnit];
     return rate ? parseFloat((initNum * rate).toFixed(5)) : null;
