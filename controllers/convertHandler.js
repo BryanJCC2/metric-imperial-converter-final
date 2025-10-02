@@ -65,7 +65,7 @@ class ConvertHandler {
       km: 1 / 1.60934
     };
     const rate = rates[initUnit];
-    return rate ? parseFloat((initNum * rate).toFixed(5)) : null;
+    return rate ? Math.round(initNum * rate * 1e5) / 1e5 : null;
   }
 
   getString(initNum, initUnit, returnNum, returnUnit) {
